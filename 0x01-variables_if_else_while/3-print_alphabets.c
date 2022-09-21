@@ -14,7 +14,7 @@ int main(void)
 	while (sl <= 'z')
 	{
 		putchar(sl);
-	        sl += 1;
+	       	sl += 1;
 	}
 	while (bg <= 'Z')
 	{
