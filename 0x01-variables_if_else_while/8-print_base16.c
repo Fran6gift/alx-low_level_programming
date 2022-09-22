@@ -14,7 +14,7 @@ int main(void)
 	while (w <= 57)
 	{
 		putchar(w);
-		n += 1;
+		w += 1;
 	}
 	while (al <= 'f')
 	{
