@@ -16,7 +16,7 @@ void print_triangle(int size)
 			for (col = 0; col < size; col++)
 			{
 				tri = (size - row) - 1;
-				if (col < aux)
+				if (col < tri)
 					_putchar(' ');
 				else
 					_putchar(35);
