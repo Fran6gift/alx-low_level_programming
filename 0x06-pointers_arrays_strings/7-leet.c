@@ -2,7 +2,7 @@
 
 /**
  * leet - Entry point
- *
+ * ONE if, TWO loops only...
  * @n: input
  * Return: Always 0 (Success)
  */
