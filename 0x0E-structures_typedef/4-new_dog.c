@@ -1,53 +1,81 @@
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include "dog.h"
-int get_len(int i);
-char *str_cpy(char *dest, char *src);
+
 /**
- * new_dog - a function that creates a new dog
- * get len of name + owner, malloc them, cpy name + owner to new
- * @name: name
- * @age: age
- * @owner: owner
- * Return: 0
+ * new_dog - function that creates a new dog
+ * @name: passed from main
+ * @age: passed from main
+ * @owner: passed from main
+ *
+ * Return: pointer to the struct
  */
+
 dog_t *new_dog(char *name, float age, char *owner)
 {
-	dog_t *new_name;
-	char *copy_name, *copy_owner;
-	unsigned int x, name_len = 0, owner_len = 0;
+	dog_t *ptr;
 
-	new_name = malloc(sizeof(dog_t));
-	if (name == NULL)
+	if (name == NULL || owner == NULL)
 		return (NULL);
-	if (name == NULL || age <= 0 || owner == NULL)
+	ptr = malloc(sizeof(dog_t));
+	if (ptr != NULL)
 	{
-		free(new_name);
-		return (NULL);
+		ptr->name = _strdup(name);
+		if (ptr->name == NULL)
+		{
+			free(ptr->name);
+			free(ptr);
+			return (NULL);
+		}
+		ptr->age = age;
+		ptr->owner = _strdup(owner);
+		if (ptr->owner == NULL)
+		{
+			free(ptr->name);
+			free(ptr->owner);
+			free(ptr);
+			return (NULL);
+		}
+		return (ptr);
 	}
+	return (NULL);
+}
 
-	for (x = 0; name[x] != '\0'; x++)
-		name_len++;
+/**
+ * _strdup - function that returns a pointer to a newly allocated space
+ * in memory, which contains a copy of the string given as a parameter
+ *
+ * @str: string of chars
+ *
+ * Return: address of the newly allocated memory
+ */
 
-	for (x = 0; owner[x] != '\0'; x++)
-		owner_len++;
+char *_strdup(char *str)
+{
+	unsigned int len;
+	unsigned int i, j;
+	char *str_copy;
+	char *tmp = str;
 
-	copy_name = malloc(sizeof(char) * (name_len + 1));
-	if (copy_name == NULL)
+	if (str == NULL)
 		return (NULL);
 
-	copy_owner = malloc(sizeof(char) * (owner_len + 1));
-	if (copy_owner == NULL)
+	i = 0;
+	while (*str++)
+		i++;
+	len = i;
+	str = tmp;
+
+	str_copy = malloc(len * sizeof(char) + 1);
+	if (str_copy == NULL)
 		return (NULL);
 
-	for (x = 0; x <= name_len; x++)
-		copy_name[x] = name[x];
-
-	for (x = 0; x <= owner_len; x++)
-		copy_owner[x] = owner[x];
-
-	new_name->name = copy_name;
-	new_name->owner = copy_owner;
-	new_name->age = age;
-	return (new_name);
+	j = 0;
+	while (j < len)
+	{
+		str_copy[j] = str[j];
+		j++;
+	}
+	str_copy[j] = '\0';
+	return (str_copy);
 }
